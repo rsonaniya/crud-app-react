@@ -5,10 +5,14 @@ import TextForm from "./Components/TextForm";
 function App() {
   const [items, setItems] = useState([]);
   const [isDarkMode, setIsDarkMode] = useState(false);
-  const [editValue, setEditValue] = useState(null);
+  const [isError, setIsError] = useState(false);
 
   const handleAddItem = (item) => {
+    setIsError(false);
     setItems([...items, item]);
+  };
+  const handleError = () => {
+    setIsError(true);
   };
 
   const handleStartEditingItem = (id) => {
@@ -33,15 +37,16 @@ function App() {
   };
 
   const handleSubmitEditingItem = (id) => {
-const newItems = items.map(i=>{
-  if(i.id===id){
-    i.isEditing = false;
-    return i
-  }else{
-    return i
-  }
-})
-setItems(newItems)    
+    const newItems = items.map((i) => {
+      if (i.id === id) {
+        i.isEditing = false;
+        setIsError(false);
+        return i;
+      } else {
+        return i;
+      }
+    });
+    setItems(newItems);
   };
 
   const handleDeleteItem = (id) => {
@@ -55,10 +60,10 @@ setItems(newItems)
         isDarkMode ? "bg-black" : "bg-white"
       }`}
     >
-      <div class="form-check form-switch position-absolute top-1 end-0 mx-2">
+      <div className="form-check form-switch position-absolute top-1 end-0 mx-2">
         <input
           onClick={() => setIsDarkMode(!isDarkMode)}
-          class="form-check-input"
+          className="form-check-input"
           type="checkbox"
           role="switch"
         />
@@ -66,7 +71,11 @@ setItems(newItems)
           Toggle Dark/Light Mode
         </span>
       </div>
-      <TextForm onAddItem={handleAddItem} isDarkMode={isDarkMode} />
+      <TextForm
+        onAddItem={handleAddItem}
+        isDarkMode={isDarkMode}
+        onError={handleError}
+      />
       <ListView
         items={items}
         onStartEditing={handleStartEditingItem}
@@ -74,10 +83,12 @@ setItems(newItems)
         onEditChange={handleEditChange}
         onDeleteItem={handleDeleteItem}
         isDarkMode={isDarkMode}
+        onError={handleError}
       />
+
+      {isError && <p className="text-danger">Input can not be blank</p>}
     </div>
   );
 }
 
 export default App;
-

@@ -5,6 +5,7 @@ function ListView({
   onEditChange,
   onDeleteItem,
   isDarkMode,
+  onError,
 }) {
   const handleDelete = (id) => {
     onDeleteItem(id);
@@ -26,9 +27,7 @@ function ListView({
             <form
               onSubmit={(e) => {
                 e.preventDefault();
-                onFinishEditing(item.id)
-
-                
+                item.text ? onFinishEditing(item.id) : onError();
               }}
               className={`form-control d-flex justify-content-between ${
                 isDarkMode ? "bg-secondary text-white" : ""
@@ -40,8 +39,7 @@ function ListView({
                   isDarkMode ? "bg-secondary text-white" : ""
                 }`}
                 value={item.text}
-                onChange={(e) => onEditChange(e.target.value,item)}
-                required
+                onChange={(e) => onEditChange(e.target.value, item)}
               />
               <button type="submit" className="btn btn-success mx-2">
                 ✓
@@ -74,4 +72,3 @@ function ListView({
 }
 
 export default ListView;
-

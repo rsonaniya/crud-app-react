@@ -1,12 +1,14 @@
 import { useState } from "react";
 
-function TextForm({ onAddItem, isDarkMode }) {
+function TextForm({ onAddItem, isDarkMode, onError }) {
   const [text, setText] = useState("");
   const handleSubmit = (e) => {
     e.preventDefault();
-    const newItem = { id: Date.now(), text };
-    onAddItem(newItem);
-    setText("");
+    if (text.trim()) {
+      const newItem = { id: Date.now(), text };
+      onAddItem(newItem);
+      setText("");
+    } else onError();
   };
   return (
     <form onSubmit={handleSubmit} className="container">
@@ -29,7 +31,6 @@ function TextForm({ onAddItem, isDarkMode }) {
           }`}
           value={text}
           onChange={(e) => setText(e.target.value)}
-          required
         />
         <button type="submit" className="btn btn-success">
           <i className="bi bi-plus-square"></i>
@@ -40,4 +41,3 @@ function TextForm({ onAddItem, isDarkMode }) {
 }
 
 export default TextForm;
-
