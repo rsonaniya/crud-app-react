@@ -92,9 +92,13 @@ function App() {
           role="alert"
         >
           <span className="mx-3">Input Can't be blank</span>{" "}
-          <i class="bi bi-exclamation-triangle-fill"></i>
+          <i className="bi bi-exclamation-triangle-fill"></i>
         </div>
       )}
+      <p className="text-center fixed-bottom">
+        Made With <i className="bi bi-heart-fill text-danger"></i> by Rajat
+        Sonaniya
+      </p>
     </div>
   );
 }
