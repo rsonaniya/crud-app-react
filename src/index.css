@@ -14,3 +14,10 @@ input.form-control:focus {
 input {
   border: none;
 }
+
+.alert {
+  width: 20%;
+  height: 5px;
+ margin: 0 auto;
+
+}

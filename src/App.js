@@ -56,7 +56,7 @@ function App() {
 
   return (
     <div
-      className={`text-center min-vh-100 p-2 ${
+      className={`text-center min-vh-100 p-2 mt-2 ${
         isDarkMode ? "bg-black" : "bg-white"
       }`}
     >
@@ -86,7 +86,15 @@ function App() {
         onError={handleError}
       />
 
-      {isError && <p className="text-danger">Input can not be blank</p>}
+      {isError && (
+        <div
+          className="alert fixed-top mt-3 alert-danger d-flex align-items-center justify-content-center"
+          role="alert"
+        >
+          <span className="mx-3">Input Can't be blank</span>{" "}
+          <i class="bi bi-exclamation-triangle-fill"></i>
+        </div>
+      )}
     </div>
   );
 }
