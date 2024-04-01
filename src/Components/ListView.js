@@ -41,6 +41,7 @@ function ListView({
                 }`}
                 value={item.text}
                 onChange={(e) => onEditChange(e.target.value,item)}
+                required
               />
               <button type="submit" className="btn btn-success mx-2">
                 ✓
