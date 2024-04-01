@@ -1,23 +1,18 @@
-import { useState } from "react";
-
 function ListView({
   items,
   onStartEditing,
   onFinishEditing,
+  onEditChange,
   onDeleteItem,
   isDarkMode,
 }) {
-  const [editValue, setEditValue] = useState(null);
   const handleDelete = (id) => {
     onDeleteItem(id);
   };
   const handleStartEditing = (id) => {
     onStartEditing(id);
   };
-  const handleSubmitEditing = (id) => {
-    onFinishEditing(id, editValue);
-    setEditValue(null);
-  };
+
   return (
     <div className="container mt-5">
       {items.map((item) => (
@@ -31,7 +26,9 @@ function ListView({
             <form
               onSubmit={(e) => {
                 e.preventDefault();
-                handleSubmitEditing(item.id);
+                onFinishEditing(item.id)
+
+                
               }}
               className={`form-control d-flex justify-content-between ${
                 isDarkMode ? "bg-secondary text-white" : ""
@@ -42,12 +39,8 @@ function ListView({
                 className={`form-control w-75 ${
                   isDarkMode ? "bg-secondary text-white" : ""
                 }`}
-                value={
-                  editValue !== null
-                    ? editValue
-                    : items.filter((i) => i.id === item.id)[0].text
-                }
-                onChange={(e) => setEditValue(e.target.value)}
+                value={item.text}
+                onChange={(e) => onEditChange(e.target.value,item)}
               />
               <button type="submit" className="btn btn-success mx-2">
                 ✓
@@ -80,3 +73,4 @@ function ListView({
 }
 
 export default ListView;
+
